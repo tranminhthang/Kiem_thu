@@ -1,0 +1,45 @@
+*** Settings ***
+Documentation     A test suite with a single test for valid landing page.
+...
+...               This test has a workflow that is created using keywords in
+...               the imported resource file.
+Resource          resource.txt
+
+*** Test Cases ***
+Valid Login Page
+    Open browser to see login page
+
+Input Username and Password
+	Input Text		id_username		thangtm
+	Input Text		id_password		nhomchin
+	
+Submit and navigate to test url
+	Click Button	login
+	Go To Test Url
+
+*** Test Cases ***
+nhap chinh xac
+	Assign Id To Element  xpath=//tr/td[@class="dd col1"]/input[@id="28256_20/01/2014_loai"]  cell
+	Input To Cell Value X And It Should Display Value Y		cell	P       P	
+	Input To Cell Value X And It Should Display Value Y		cell	K       K	
+	Input To Cell Value X And It Should Display Value Y		cell	M       M	
+	
+*** Test Cases ***
+nhap chu in thuong dung
+	Input To Cell Value X And It Should Display Value Y		cell	p		P
+	Input To Cell Value X And It Should Display Value Y		cell	k		K
+	Input To Cell Value X And It Should Display Value Y		cell	m		M
+	
+*** Test Cases ***
+nhap sai 
+	Input To Cell Value X And It Should Display Value Y		cell	a		\
+
+	
+
+	
+	
+	
+
+	
+	
+	

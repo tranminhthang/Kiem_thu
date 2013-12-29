@@ -1,0 +1,130 @@
+﻿*** Settings ***
+Documentation     A resource file with reusable keywords and variables.
+...
+...               The system specific keywords created here form our own
+...               domain specific language. They utilize keywords provided
+...               by the imported Selenium2Library.
+Library           Selenium2Library
+
+*** Variables ***
+${SERVER}         truongnha.com
+${BROWSER}        Firefox
+${DELAY}          0
+${VALID USER}     thangtm
+${VALID PASSWORD}    nhomchin
+
+${VALID LASTNAME}     Nguyen
+${VALID FIRSTNAME}    Cuong
+${VALID DATEOFBIRTH}	04/02/1970
+
+${LOGIN URL}      http://${SERVER}/login/
+${WELCOME URL}    http://${SERVER}/school/
+${ERROR URL}      http://${SERVER}/login/
+${VIEWCLASS URL}      http://${SERVER}/school/viewClassDetail/1345
+${VIEWCLASS_1 URL}      http://${SERVER}/school/viewClassDetail/1345#
+${test url}			http://${SERVER}/school/viewClassDetail/1345
+
+
+
+*** Keywords ***
+Open Browser To Login Page
+    Open Browser    ${LOGIN URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Trường Nhà Should Be Open
+
+Trường Nhà Should Be Open
+    Title Should Be    Trường Nhà
+
+Go To Trường Nhà
+    Location Should Be    ${LOGIN URL}
+    Trường Nhà Should Be Open
+	Input Text    id=id_username	thangtm
+	Input Text    id=id_password	nhomchin
+	Click Button	login
+	
+	Trường Nhà - Kiểm thử - Nhóm 9 Should Be Open
+	Click Button 10 A
+	Click Button List Management
+	Click Button Add Student
+	
+	
+Trường Nhà - Kiểm thử - Nhóm 9 Should Be Open
+    Location Should Be    ${WELCOME URL}
+    Title Should Be    Trường Nhà - Kiểm thử - Nhóm 9
+
+Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail Should Be Open
+	Location Should Be    ${VIEWCLASS URL}
+    Title Should Be    Trường Nhà - Kiểm thử - Nhóm 9
+
+Go To Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail
+    Location Should Be    ${VIEWCLASS URL}
+    Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail Should Be Open
+
+Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail# Should Be Open
+	Location Should Be    ${VIEWCLASS_1 URL}
+    Title Should Be    Trường Nhà - Kiểm thử - Nhóm 9
+selenium.getEval("this.browserbot.findElement('id="notify"').innerHTML") = Học sinh đã tồn tạiw
+
+Go To Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail#
+    Location Should Be    ${VIEWCLASS_1 URL}
+    Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail# Should Be Open
+	
+Input LastName
+    [Arguments]    ${LastName}
+    Input Text    id_last_name    ${LastName}
+	
+Input FirstName
+    [Arguments]    ${FirstName}
+    Input Text    id_first_name    ${FirstName}
+	
+Input DateOfBirth
+    [Arguments]    ${DateOfBirth}
+    Input Text    id_birthday    ${DateOfBirth}
+	
+Input Phone
+    [Arguments]    ${Phone}
+    Input Text    id_sms_phone    ${Phone}
+	
+Input Sex
+	[Arguments]    ${Sex}
+    Input Text    id_sex    ${Sex}
+	
+Input Ethnic
+    [Arguments]    ${Ethnic}
+    Input Text    id_dan_toc    ${Ethnic}
+
+Input Address
+    [Arguments]    ${Address}
+    Input Text    id_current_address    ${Address}
+
+Input NameOfFather
+    [Arguments]    ${NameOfFather}
+    Input Text    id_father_name    ${NameOfFather}
+
+Input NameOfMother
+    [Arguments]    ${NameOfMother}
+    Input Text    id_mother_name    ${NameOfMother}
+	
+Input PlaceOfBirth
+    [Arguments]    ${PlaceOfBirth}
+    Input Text    id_birth_place    ${PlaceOfBirth}
+
+
+Submit Credentials2
+    Click Button    add-student-submit
+
+
+Click Button 10 A
+    Click Element    1345
+
+Click Button List Management
+    Click Element    student-list-menu
+	
+Click Button Add Student
+    Click Element    add-student
+	
+Go To Login
+	Go To	${LOGIN URL} 
+
+	

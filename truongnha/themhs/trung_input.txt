@@ -1,0 +1,55 @@
+*** Settings ***
+Documentation     A test suite with a single test for valid input.
+...
+...               This test has a workflow that is created using keywords in
+...               the imported resource file.
+
+Resource          resource.txt
+Suite Setup       Open Browser To Login Page
+Suite Teardown    Close Browser
+Test Setup        Go To Trường Nhà
+Test Template     Valid Input
+
+
+
+*** Test Cases ***    LastName		FirtName	DateOfBirth		Phone	Ethnic	Address		NameOfFather		NameOfMother	PlaceOfBirth	
+
+Test Cases1		${VALID LASTNAME}	A	${VALID DATEOFBIRTH}	${EMPTY}	${EMPTY}	${EMPTY}	${EMPTY}	${EMPTY}	${EMPTY}
+Test Cases2		${VALID LASTNAME}	A	${VALID DATEOFBIRTH}	01223234345	${EMPTY}	${EMPTY}	${EMPTY}	${EMPTY}	${EMPTY}
+Test Cases3		${VALID LASTNAME}	A	${VALID DATEOFBIRTH}	01223234345		A		${EMPTY}	${EMPTY}	${EMPTY}	${EMPTY}
+Test Cases4		${VALID LASTNAME}	A	${VALID DATEOFBIRTH}	01223234345		A		Kinh	${EMPTY}	${EMPTY}	${EMPTY}
+Test Cases5		${VALID LASTNAME}	A	${VALID DATEOFBIRTH}	01223234345		A		Kinh	A	${EMPTY}	${EMPTY}
+Test Cases6		${VALID LASTNAME}	A	${VALID DATEOFBIRTH}	01223234345		A		Kinh	A	B	${EMPTY}
+Test Cases7		${VALID LASTNAME}	A	${VALID DATEOFBIRTH}	01223234345		A		Kinh	A	B	X
+
+*** Keywords ***
+
+Go To Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail
+
+Valid Input
+
+
+    [Arguments]    ${LastName}    ${FirstName}	${DateOfBirth} 	${Phone}  ${Ethnic}	 ${Address}	 ${NameOfFather}		${NameOfMother}		${PlaceOfBirth}
+    Input LastName   	 	${LastName}
+    Input FirstName  	  	${FirstName}
+	Input DateOfBirth		${DateOfBirth}
+	Input Phone  	 		${Phone}
+	Input Ethnic  			${Ethnic}
+	Input Address		 	${Address}
+	Input NameOfFather		${NameOfFather}
+	Input NameOfMother		${NameOfMother}
+	Input PlaceOfBirth		${PlaceOfBirth}
+	Input PlaceOfBirth		${PlaceOfBirth}
+
+
+    Submit Credentials2
+    Trường Nhà - Kiểm thử - Nhóm 9 - ViewClassDetail# Should Be Open
+	
+	Set Selenium Speed 	1 seconds
+	${testValue}=    Get Text  xpath=//html/body/div[@class="notify-widget-pane"]/div[@class="notify"]
+
+	Should Be Equal		${testValue}	 Học sinh đã tồn tại
+	Set Selenium Speed 	0 seconds
+    Click Element    logout
+
+	Go To Login
