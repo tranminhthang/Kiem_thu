@@ -1,0 +1,57 @@
+*** Settings ***
+Documentation     A resource file with reusable keywords and variables.
+...
+...               The system specific keywords created here form our own
+...               domain specific language. They utilize keywords provided
+...               by the imported Selenium2Library.
+Library           Selenium2Library
+
+
+*** Variables ***
+${HOST}             truongnha.com
+${BROWSER}        Firefox
+${DELAY}          0
+${LOGIN URL}        http://${HOST}/login/
+${WELCOME URL}      http://${HOST}/school/
+${CLASS1446 URL}    http://${HOST}/school/viewClassDetail/1345
+${SUBJECT1446 URL}  http://${HOST}/school/subjectPerClass/1446
+${test url}		    http://${HOST}/school/diemdanh/1345/29/12/2013
+${VALID USER}       thangtm
+${VALID PASSWD}     nhomchin
+
+
+*** Keywords ***	
+Mở trang login
+	Open Browser  ${LOGIN URL}    ${BROWSER}
+	Maximize Browser Window
+    Set Selenium Speed    ${DELAY}  
+
+đến trang login
+    Go To  ${LOGIN URL}    
+
+điền tài khoản
+    Input Text  id_username  ${VALID USER}
+
+điền mật khẩu
+    Input Text  id_password  ${VALID PASSWD}
+
+kick login
+    Click Button  login
+	
+Đi tới trang điểm danh
+    Go To  ${test url}	   
+	
+Mở trang Thông tin lớp 10A
+	Click Link  1345
+
+lựa chọn học sinh
+	Select Checkbox   xpath=//input[@id="checkbox_28257"]
+
+Click Button quản lý
+    Click Element    student-list-menu
+
+Click xóa học sinh
+    Click Element       delSelected
+
+
+	
